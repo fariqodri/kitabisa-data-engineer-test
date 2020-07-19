@@ -41,7 +41,25 @@ class FirstPrimesCommand(Command):
 
 class SortAndCombineCommand(Command):
     def __init__(self, first: List[Any], second: List[Any]):
-        pass
+        self._first = first
+        self._second = second
 
     def execute(self) -> List[List[str]]:
-        return super().execute()
+        first = sorted(self._first)
+        second = sorted(self._second)
+        result = []
+        if len(first) >= len(second):
+            for i in range(0, len(first)):
+                if i >= len(second):
+                    content = [f"{first[i]}:NULL"]
+                else:
+                    content = [f"{first[i]}:{second[i]}"]
+                result.append(content)
+        else:
+            for i in range(0, len(second)):
+                if i >= len(first):
+                    content = [f"NULL:{second[i]}"]
+                else:
+                    content = [f"{first[i]}:{second[i]}"]
+                result.append(content)
+        return result
