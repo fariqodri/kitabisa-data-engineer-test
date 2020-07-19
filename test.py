@@ -18,9 +18,21 @@ class TestFirstPrimesCommand(unittest.TestCase):
         self.assertEqual(actual, expected)
 
 class TestSortAndCombineCommand(unittest.TestCase):
-    def test_sort_and_combine(self):
+    def test_sort_and_combine_first_longer(self):
         command = SortAndCombineCommand([4, 3, 6, 5, 1, 2], ['F', 'C', 'D', 'B', 'A'])
         expected = [['1:A'], ['2:B'], ['3:C'], ['4:D'], ['5:F'], ['6:NULL']]
+        actual = command.execute()
+        self.assertEqual(actual, expected)
+    
+    def test_sort_and_combine_second_longer(self):
+        command = SortAndCombineCommand([4, 3, 5, 1, 2], ['F', 'C', 'D', 'B', 'A', 'E'])
+        expected = [['1:A'], ['2:B'], ['3:C'], ['4:D'], ['5:E'], ['NULL:F']]
+        actual = command.execute()
+        self.assertEqual(actual, expected)
+
+    def test_sort_and_combine_same_length(self):
+        command = SortAndCombineCommand([4, 3, 5, 1, 2, 6], ['F', 'C', 'D', 'B', 'A', 'E'])
+        expected = [['1:A'], ['2:B'], ['3:C'], ['4:D'], ['5:E'], ['6:F']]
         actual = command.execute()
         self.assertEqual(actual, expected)
 
